@@ -1,0 +1,28 @@
+#title{
+  width: 100%;
+}
+.botones , .title_h {
+  text-align: center;
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}
+body {
+  text-align: center;
+}
+.botones > p {
+  display: inline-block;
+  margin: 0 10px;
+}
+.btn {
+  width: 50px;
+}
+input {
+  width: 70px;
+}
+.title_h > * {
+  display: inline-block;
+  margin-right: 10px;
+}

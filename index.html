@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>cheselio</title>
+    <link rel="stylesheet" href="master.css">
+  </head>
+  <body>
+    <div class="title_h">
+      <h2 id="title">El ajejuego</h2><h3>Reinas: </h3><h3 id="nqueens">0</h3>
+  </div>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <div class="botones">
+      <!-- <button class="btn" type="button" onclick="drawlastBoard()" name="button">-</button> -->
+      <button class="btn" type="button" onclick="iniBoard()" name="button">Reset</button>
+      <!-- <input type="text" name="Filas" value="" id="fqueen" placeholder="Filas"> -->
+      <!-- <input type="text" name="Columnas" value="" id="cqueen" placeholder="Columnas"> -->
+      <!-- <button class="btn" type="button" onclick="input_columnas()" name="button">+</button> -->
+      <p>Tamaño del tablero: </p><input type="number" name="size" id="size" value="8"><button type="button" onclick="changesize()">Change!</button>
+    </div>
+    <script src="main.js" charset="utf-8"></script>
+  </body>
+</html>
