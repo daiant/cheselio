@@ -21,9 +21,10 @@ function iniBoard() {
       ctx.strokeRect(i*50, j*50, 50, 50);
       board[i+j*n] = 0;
     }
+    if(n%2!=0) bool=!bool;
   }
 }
-function uptdateBoard() {
+function updateBoard(callback) {
   ctx.save();
   ctx.globalAlpha = 0.9;
   ctx.fillStyle = colors[2];
@@ -36,8 +37,9 @@ function uptdateBoard() {
     }
   }
   ctx.restore();
+  callback();
 }
-function drawQueen(c,f) {
+function drawQueen(c,f, callback) {
   img = new Image();
   c--;
   f--;
@@ -49,7 +51,9 @@ function drawQueen(c,f) {
   img.onload = function() {
     ctx.drawImage(img, f*50+5, c*50+5, 40, 40);
     c++;f++;
-    rules(c,f);
+    console.log("["+(f)+", "+c+"]");
+    rules(c,f, function() {var x=1;});
+    callback();
   }
 }
 function printBoard() {
@@ -63,7 +67,7 @@ function printBoard() {
   }
   console.log(res);
 }
-function rules(c,f) {
+function rules(c,f, callback) {
   f--;
   c--;
   // Vertical
@@ -99,7 +103,8 @@ function rules(c,f) {
     af--;ac++;
     board[af+ac*n] = 2;
   }
-  uptdateBoard();
+  updateBoard(function() {var x=1;});
+  callback();
 }
 c.addEventListener('click', function(event){
   var rect = c.getBoundingClientRect();
@@ -126,4 +131,40 @@ function changesize() {
   c.height = n*50;
   iniBoard();
 }
+function main() {
+  var v = [];
+  AlgoReina(1,0,v);
+}
+function AlgoReina(c,ini,v) {
+  if(QUEENS==n) {return true;}
+  ac = c-1;
+  var aux = ini;
+  if(c!=1) ini = 0;
+  for (let i = ini; i < n; i++) {
+    if(board[ac+i*n]==0) {
+      v[ac]=i;
+      drawQueen(i+1,c, function () {
+        setTimeout(function(){
+          return AlgoReina(c+1, aux,v);
+        },500)
+      });
+      break;
+    }
+    if(i==n-1) {
+      iniBoard();
+      AlgoReina(1,aux+1,v);
+      return false;
+    }
+}
+
+}
 iniBoard();
+function restoreBoard(v) {
+  // necesario que espere a que una reina se cree, con sus reglas y tal para que se bloquee la otra.
+  // no es tan necesario en principio pero es una buena práctica
+  iniBoard();
+  for (var i = 0; i < v.length; i++) {
+    drawQueen(v[i]+1,i+1,function(){var x=1;});
+    setTimeout(function(){console.log("hola")},200);
+  }
+}
